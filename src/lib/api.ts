@@ -6,8 +6,8 @@ const testDB = new Database("test.db");
 export const addUser = (user: OptionalUser): Database.RunResult => {
     return testDB
     .prepare(`
-            INSERT INTO users(id, name,surname,username, salary, password)
-            VALUES(@id, @name, @surname, @username, @salary, @password)
+            INSERT INTO users(name,surname,username, salary, password)
+            VALUES(@name, @surname, @username, @salary, @password)
         `).run(user);
 }
 
