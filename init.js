@@ -7,6 +7,7 @@ db.exec(`
         name TEXT,
         surname TEXT,
         username TEXT,
-        salary INTEGER
+        salary INTEGER,
+        password TEXT
     )
 `)

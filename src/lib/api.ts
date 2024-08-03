@@ -1,20 +1,16 @@
 import Database from "better-sqlite3"
-import { IUser } from "./types"
+import { IUser, OptionalUser } from "./types"
 
-const authDB = new Database("auth.db");
+const testDB = new Database("test.db");
+
+export const addUser = (user: OptionalUser): Database.RunResult => {
+    return testDB
+    .prepare(`
+            INSERT INTO users(id, name,surname,username, salary, password)
+            VALUES(@id, @name, @surname, @username, @salary, @password)
+        `).run(user);
+}
 
 export const getAllUsers = ():IUser[] => {
-    return authDB.prepare("SELECT * FROM users").all() as IUser[]
-}
-
-export const getUserByUsername = (username: string): IUser | undefined => {
-    return authDB.prepare("SELECT * FROM users WHERE username = ?").get(username) as IUser | undefined;
-}
-
-export const addUser = (user: IUser): Database.RunResult => {
-    return authDB
-    .prepare(`
-            INSERT INTO users(id, name, surname, username, salary)
-            VALUES(@id, @name, @surname, @username, @salary)
-        `).run(user);
+    return testDB.prepare("SELECT * FROM users").all() as IUser[]
 }

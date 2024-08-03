@@ -1,5 +1,22 @@
 {
-  "node": {},
+  "node": {
+    "27c87cc3e821a9d53d508671532bccd0ba660954": {
+      "workers": {
+        "app/add/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CLenovo%5C%5CDesktop%5C%5Cpicsart%20academy1%5C%5CFrontEnd%5C%5Cexam1%5C%5Csrc%5C%5Clib%5C%5Cactions.ts%22%2C%5B%22%24%24ACTION_0%22%2C%22handleAdd%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/add/page": "action-browser"
+      }
+    },
+    "d2b3d58f2560b7930d1adcad429a856a4030da87": {
+      "workers": {
+        "app/add/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CLenovo%5C%5CDesktop%5C%5Cpicsart%20academy1%5C%5CFrontEnd%5C%5Cexam1%5C%5Csrc%5C%5Clib%5C%5Cactions.ts%22%2C%5B%22%24%24ACTION_0%22%2C%22handleAdd%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/add/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
-  "encryptionKey": "i/pT7SiZFaLThv16FgEM0HpDQc6ODYdzp6HqcyQQniM="
+  "encryptionKey": "fW/4S007M75ZGHdwSNEGS6WmXX2bR/4HMzAL1aAgl1c="
 }

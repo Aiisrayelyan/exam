@@ -1,54 +1,54 @@
-import { addUser, getUserByUsername } from "./api";
-import { nanoid } from "nanoid"
-import { IUser } from "./types";
+"use server"
 
-function validateRegistration(name: string, surname: string, username: string, salary: number): { valid: boolean, message: string } {
-    const isUserExist = getUserByUsername(username);
+import { OptionalUser } from "./types"
+import bcrypt from "bcrypt"
+import { addUser } from "./api"
+import Database from 'better-sqlite3';
+import { redirect } from "next/navigation";
 
-    if (isUserExist) {
-        return { valid: false, message: 'User with this username already exists' };
+const db = new Database('./test.db');
+
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&+])[A-Za-z\d@$!%*?&+]{6,}$/;
+
+function validateRegistration(username: string, password: string): { valid: boolean, message: string } {
+    const existingUser = db.prepare('SELECT username FROM users WHERE username = ?').get(username);
+    if (existingUser) {
+        return { valid: false, message: 'Username is already taken.' };
     }
 
-    if(salary <= 0) {
-        return { valid: false, message: "User can't have zero or negative salary" };
+    if (!passwordRegex.test(password)) {
+        return { valid: false, message: 'Password must be at least 6 characters long and include letters, numbers, and symbols.' };
     }
 
     return { valid: true, message: 'Validation successful.' };
 }
 
-export const handleAddUser = async (prev: unknown, data: any): Promise<{ message: string, user?: IUser }> => {
-    const name = data.get('name') as string;
-    const surname = data.get('surname') as string;
-    const username = data.get('username') as string;
-    const salary = data.get('salary') as number;
-
-    if (!name || !surname || !username || !salary) {
-        return { message: 'Please fill all of the fields' };
+export const handleAdd = async (prev: unknown, data: FormData) => {
+    if (!data.get('name') || !data.get('surname') || !data.get('username') || !data.get('salary') || !data.get('password')) {
+        return { message: 'please fill all of the fields' };
     }
 
-    const validation = validateRegistration(name, surname, username, salary);
+    const salary = parseFloat(data.get('salary') as string);
+    if (isNaN(salary)) {
+        return { message: 'salary must be a number' };
+    }
+
+    const username = data.get('username') as string;
+    const password = data.get('password') as string;
+
+    const validation = validateRegistration(username, password);
     if (!validation.valid) {
         return { message: validation.message };
     }
 
-    const user: IUser = {
-        id: nanoid(),
-        name,
-        surname,
-        username,
-        salary
+    const user: OptionalUser = {
+        name: data.get('name') as string,
+        surname: data.get('surname') as string,
+        username: username,
+        salary: salary,
+        password: await bcrypt.hash(password, 10)
     };
 
     addUser(user);
-
-    return {
-        message: 'Added user',
-        user: {
-            id: user.id,
-            name,
-            surname,
-            username,
-            salary
-        }
-    };
-};
+    redirect('/');
+}

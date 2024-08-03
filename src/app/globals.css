@@ -1,3 +1,4 @@
+@import url('https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css');
 nav{
   display: flex;
   gap:20px;
@@ -8,11 +9,4 @@ nav{
 nav a{
   color:white;
   text-decoration: none;
-}
-.container{
-  padding:1rem 4rem;
-}
-*{
-  margin:0;
-  padding:0;
 }

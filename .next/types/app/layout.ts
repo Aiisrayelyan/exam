@@ -1,4 +1,4 @@
-// File: D:\Jetbrains\Fun\Aida_exam_2\changed\src\app\layout.tsx
+// File: C:\Users\Lenovo\Desktop\picsart academy1\FrontEnd\exam1\src\app\layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
@@ -21,6 +21,7 @@ checkFields<Diff<{
   generateMetadata?: Function
   viewport?: any
   generateViewport?: Function
+  experimental_ppr?: boolean
   
 }, TEntry, ''>>()
 
